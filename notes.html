@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aries Academy Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      background-color: #f4f4f4;
+    }
+
+    .sidebar {
+      width: 250px;
+      background: #1a1a2e;
+      color: white;
+      padding: 20px 0;
+      position: fixed;
+      height: 100%;
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+
+    .sidebar.collapsed {
+      width: 0;
+      padding: 0;
+    }
+
+    .sidebar h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .sidebar a {
+      display: block;
+      padding: 15px 25px;
+      color: white;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .sidebar a:hover {
+      background: #16213e;
+    }
+
+    .main {
+      margin-left: 250px;
+      padding: 20px;
+      flex: 1;
+      transition: margin-left 0.3s ease;
+    }
+
+    .main.expanded {
+      margin-left: 0;
+    }
+
+    .topbar {
+      background: white;
+      padding: 15px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .toggle-btn {
+      font-size: 22px;
+      cursor: pointer;
+      color: #1a1a2e;
+      margin-right: 15px;
+    }
+
+    .topbar .greeting {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .topbar .user {
+      font-weight: bold;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: 1.5em;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .search-bar {
+      margin-bottom: 20px;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 10px;
+      font-size: 1em;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .filters {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .filter-select {
+      padding: 10px;
+      font-size: 1em;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .notes-list {
+      margin-top: 20px;
+    }
+
+    .note-item {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    .note-title {
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+
+    .note-year, .note-subject {
+      font-size: 1em;
+      margin-top: 10px;
+    }
+
+    .download-btn {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: #1a1a2e;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .download-btn:hover {
+      background: #16213e;
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .pagination-btn {
+      padding: 10px 20px;
+      background: #1a1a2e;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .pagination-btn:hover {
+      background: #16213e;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar" id="sidebar">
+    <h2>Aries Academy</h2>
+    <a href="User_Dashboard.html"><i class="fas fa-home"></i> Dashboard</a>
+    <a href="Question_Paper.html"><i class="fas fa-file-alt"></i> Question Papers</a>
+    <a href="notes.html"><i class="fas fa-book"></i> Notes</a>
+    <a href="#"><i class="fas fa-flask"></i> Lab Manuals</a>
+    <a href="presentation.html"><i class="fas fa-file-powerpoint"></i> Presentation</a>
+    <a href="#"><i class="fas fa-lightbulb"></i> Project Materials</a>
+    <a href="#"><i class="fas fa-rupee-sign"></i> Buy Access Pass</a>
+    <a href="order.html"><i class="fas fa-shopping-cart"></i> My Orders</a>
+    <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+    <a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
+  </div>
+
+  <div class="main" id="main">
+    <div class="topbar">
+      <div class="greeting">
+        <div class="toggle-btn" onclick="toggleSidebar()">
+          <i class="fas fa-bars"></i>
+        </div>
+        <span id="greeting-text"></span>, <span class="user">Irfan</span>!
+      </div>
+      
+      <div class="date" id="date-today"></div>
+    </div>
+
+    <!-- Notes Section -->
+    <div class="notes-container">
+        <h3 class="section-title">📚 Notes</h3>
+
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <input type="text" id="searchNotesInput" placeholder="Search Notes..." class="search-input">
+        </div>
+
+        <!-- Filters Section -->
+        <div class="filters">
+            <select class="filter-select">
+                <option value="">Select Subject</option>
+                <option value="Math">Mathematics</option>
+                <option value="CS">Computer Science</option>
+                <option value="Physics">Physics</option>
+                <option value="Chemistry">Chemistry</option>
+            </select>
+
+            <select class="filter-select">
+                <option value="">Select Semester</option>
+                <option value="1">Semester 1</option>
+                <option value="2">Semester 2</option>
+            </select>
+
+            <select class="filter-select">
+                <option value="">Select Year</option>
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
+            </select>
+        </div>
+
+        <!-- Notes List -->
+        <div id="notesList" class="notes-list">
+            <div class="note-item">
+                <h4 class="note-title">📖 Computer Science Notes - Semester 1</h4>
+                <p class="note-year"><strong>Year:</strong> 2023</p>
+                <p class="note-subject"><strong>Subject:</strong> Programming in C</p><br>
+                <a href="path_to_notes.pdf" download class="download-btn">Download Notes</a>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <button class="pagination-btn">Previous</button>
+            <button class="pagination-btn">Next</button>
+        </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const main = document.getElementById('main');
+      sidebar.classList.toggle('collapsed');
+      main.classList.toggle('expanded');
+    }
+
+    // Dynamic Greeting based on time
+    function setGreeting() {
+      const hour = new Date().getHours();
+      let greeting = "Good Morning";
+
+      if (hour >= 12 && hour < 18) {
+        greeting = "Good Afternoon";
+      } else if (hour >= 18) {
+        greeting = "Good Evening";
+      }
+
+      document.getElementById('greeting-text').innerText = greeting;
+    }
+    setGreeting();
+
+    // Date Display
+    document.getElementById('date-today').innerText = new Date().toLocaleDateString();
+
+    // Search Notes Functionality
+    document.getElementById("searchNotesInput").addEventListener("input", function () {
+      const query = this.value.toLowerCase();
+      const notes = document.querySelectorAll(".note-item");
+
+      notes.forEach(function (note) {
+        const title = note.querySelector("h4").textContent.toLowerCase();
+        if (title.includes(query)) {
+          note.style.display = "block";
+        } else {
+          note.style.display = "none";
+        }
+      });
+    });
+  </script>
+</body>
+</html>

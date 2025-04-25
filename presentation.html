@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aries Academy Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* Styling for all elements */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      background-color: #f4f4f4;
+    }
+
+    /* Sidebar Styling */
+    .sidebar {
+      width: 250px;
+      background: #1a1a2e;
+      color: white;
+      padding: 20px 0;
+      position: fixed;
+      height: 100%;
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+
+    .sidebar.collapsed {
+      width: 0;
+      padding: 0;
+    }
+
+    .sidebar h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .sidebar a {
+      display: block;
+      padding: 15px 25px;
+      color: white;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .sidebar a:hover {
+      background: #16213e;
+    }
+
+    /* Main Content Styling */
+    .main {
+      margin-left: 250px;
+      padding: 20px;
+      flex: 1;
+      transition: margin-left 0.3s ease;
+    }
+
+    .main.expanded {
+      margin-left: 0;
+    }
+
+    /* Topbar Styling */
+    .topbar {
+      background: white;
+      padding: 15px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .toggle-btn {
+      font-size: 22px;
+      cursor: pointer;
+      color: #1a1a2e;
+      margin-right: 15px;
+    }
+
+    .topbar .greeting {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .topbar .user {
+      font-weight: bold;
+    }
+
+    /* Search Bar Styling */
+    .search-bar {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      font-size: 1rem;
+    }
+
+    /* Topic Selector Styling */
+    .topic-selector {
+      padding: 10px;
+      margin-bottom: 20px;
+      width: 100%;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+    }
+
+    /* Presentation Boxes */
+    .presentations {
+      display: flex;
+      gap: 20px;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .presentation-box {
+      width: 30%;
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .presentation-box img {
+      width: 100%;
+      height: auto;
+      border-radius: 5px;
+      margin-bottom: 15px;
+    }
+
+    .presentation-box h4 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+
+    .presentation-box p {
+      margin-bottom: 15px;
+      color: #555;
+    }
+
+    .presentation-box a {
+      background: #1a1a2e;
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+
+    .presentation-box a:hover {
+      background: #f4a261;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="sidebar" id="sidebar">
+    <h2>Aries Academy</h2>
+    <a href="User_Dashboard.html"><i class="fas fa-home"></i> Dashboard</a>
+    <a href="Question_Paper.html"><i class="fas fa-file-alt"></i> Question Papers</a>
+    <a href="notes.html"><i class="fas fa-book"></i> Notes</a>
+    <a href="#"><i class="fas fa-flask"></i> Lab Manuals</a>
+    <a href="presentation.html"><i class="fas fa-file-powerpoint"></i> Presentation</a>
+    <a href="#"><i class="fas fa-lightbulb"></i> Project Materials</a>
+    <a href="#"><i class="fas fa-rupee-sign"></i> Buy Access Pass</a>
+    <a href="order.html"><i class="fas fa-shopping-cart"></i> My Orders</a>
+    <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+    <a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
+  </div>
+
+  <div class="main" id="main">
+    <div class="topbar">
+      <div class="greeting">
+        <div class="toggle-btn" onclick="toggleSidebar()">
+          <i class="fas fa-bars"></i>
+        </div>
+        <span id="greeting-text"></span>, <span class="user">Irfan</span>!
+      </div>
+      
+      <div class="date" id="date-today"></div>
+    </div>
+
+    <!-- Search Bar -->
+    <input type="text" class="search-bar" id="search-bar" placeholder="Search for presentations..." />
+
+    <!-- Topic Selector -->
+    <select class="topic-selector" id="topic-selector" onchange="filterPresentations()">
+      <option value="">Select a Topic</option>
+      <option value="business">Business</option>
+      <option value="computer">Computer</option>
+      <option value="hacking">Hacking</option>
+    </select>
+
+    <!-- Presentation Boxes Section -->
+    <div class="presentations" id="presentation-container">
+      <!-- Business Presentations -->
+      <div class="presentation-box business">
+        <img src="business1.jpg" alt="Business 1">
+        <h4>Introduction to Business</h4>
+        <p>This presentation covers the basics of business concepts.</p>
+        <a href="#">Download</a>
+      </div>
+      <div class="presentation-box business">
+        <img src="business2.jpg" alt="Business 2">
+        <h4>Marketing Strategies</h4>
+        <p>Learn key strategies for effective marketing in business.</p>
+        <a href="#">Download</a>
+      </div>
+
+      <!-- Computer Presentations -->
+      <div class="presentation-box computer">
+        <img src="computer1.jpg" alt="Computer 1">
+        <h4>Introduction to Programming</h4>
+        <p>Basic concepts of programming using Python.</p>
+        <a href="#">Download</a>
+      </div>
+      <div class="presentation-box computer">
+        <img src="computer2.jpg" alt="Computer 2">
+        <h4>Advanced Algorithms</h4>
+        <p>Learn about complex algorithms and their applications.</p>
+        <a href="#">Download</a>
+      </div>
+
+      <!-- Hacking Presentations -->
+      <div class="presentation-box hacking">
+        <img src="hacking1.jpg" alt="Hacking 1">
+        <h4>Ethical Hacking Basics</h4>
+        <p>Introduction to ethical hacking and penetration testing.</p>
+        <a href="#">Download</a>
+      </div>
+      <div class="presentation-box hacking">
+        <img src="hacking2.jpg" alt="Hacking 2">
+        <h4>Cybersecurity Fundamentals</h4>
+        <p>Learn how to secure systems from cyber threats.</p>
+        <a href="#">Download</a>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const main = document.getElementById('main');
+      sidebar.classList.toggle('collapsed');
+      main.classList.toggle('expanded');
+    }
+
+    // Dynamic Greeting based on time
+    function setGreeting() {
+      const hour = new Date().getHours();
+      let greeting = "Good Morning";
+
+      if (hour >= 12 && hour < 18) {
+        greeting = "Good Afternoon";
+      } else if (hour >= 18) {
+        greeting = "Good Evening";
+      }
+
+      document.getElementById('greeting-text').innerText = greeting;
+    }
+    setGreeting();
+
+    // Date Display
+    document.getElementById('date-today').innerText = new Date().toLocaleDateString();
+
+    // Filter Presentations by Topic
+    function filterPresentations() {
+      const selectedTopic = document.getElementById('topic-selector').value;
+      const presentations = document.querySelectorAll('.presentation-box');
+      presentations.forEach(presentation => {
+        if (selectedTopic === "" || presentation.classList.contains(selectedTopic)) {
+          presentation.style.display = "block";
+        } else {
+          presentation.style.display = "none";
+        }
+      });
+    }
+
+    // Add Search Functionality (Optional)
+    document.getElementById('search-bar').addEventListener('input', function(event) {
+      const searchTerm = event.target.value.toLowerCase();
+      const presentations = document.querySelectorAll('.presentation-box');
+      presentations.forEach(presentation => {
+        const title = presentation.querySelector('h4').innerText.toLowerCase();
+        if (title.includes(searchTerm)) {
+          presentation.style.display = "block";
+        } else {
+          presentation.style.display = "none";
+        }
+      });
+    });
+  </script>
+</body>
+</html>

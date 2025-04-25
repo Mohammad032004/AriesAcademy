@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aries Academy Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* Styling for all elements */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      background-color: #f4f4f4;
+    }
+
+    /* Sidebar Styling */
+    .sidebar {
+      width: 250px;
+      background: #1a1a2e;
+      color: white;
+      padding: 20px 0;
+      position: fixed;
+      height: 100%;
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+
+    .sidebar.collapsed {
+      width: 0;
+      padding: 0;
+    }
+
+    .sidebar h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .sidebar a {
+      display: block;
+      padding: 15px 25px;
+      color: white;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .sidebar a:hover {
+      background: #16213e;
+    }
+
+    /* Main Content Styling */
+    .main {
+      margin-left: 250px;
+      padding: 20px;
+      flex: 1;
+      transition: margin-left 0.3s ease;
+    }
+
+    .main.expanded {
+      margin-left: 0;
+    }
+
+    /* Topbar Styling */
+    .topbar {
+      background: white;
+      padding: 15px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .toggle-btn {
+      font-size: 22px;
+      cursor: pointer;
+      color: #1a1a2e;
+      margin-right: 15px;
+    }
+
+    .topbar .greeting {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .topbar .user {
+      font-weight: bold;
+    }
+
+    /* Card and Section Styling */
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: 1.5em;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    /* Orders Table Styling */
+    .orders-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    .orders-table th, .orders-table td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+
+    .orders-table th {
+      background-color: #1a1a2e;
+      color: white;
+    }
+
+    .orders-table tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    .orders-table td a {
+      color: #1a1a2e;
+      text-decoration: none;
+    }
+
+    .orders-table td a:hover {
+      text-decoration: underline;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="sidebar" id="sidebar">
+    <h2>Aries Academy</h2>
+    <a href="User_Dashboard.html"><i class="fas fa-home"></i> Dashboard</a>
+    <a href="Question_Paper.html"><i class="fas fa-file-alt"></i> Question Papers</a>
+    <a href="notes.html"><i class="fas fa-book"></i> Notes</a>
+    <a href="#"><i class="fas fa-flask"></i> Lab Manuals</a>
+    <a href="presentation.html"><i class="fas fa-file-powerpoint"></i> Presentation</a>
+    <a href="#"><i class="fas fa-lightbulb"></i> Project Materials</a>
+    <a href="#"><i class="fas fa-rupee-sign"></i> Buy Access Pass</a>
+    <a href="order.html"><i class="fas fa-shopping-cart"></i> My Orders</a>
+    <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+    <a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
+  </div>
+
+  <div class="main" id="main">
+    <div class="topbar">
+      <div class="greeting">
+        <div class="toggle-btn" onclick="toggleSidebar()">
+          <i class="fas fa-bars"></i>
+        </div>
+        <span id="greeting-text"></span>, <span class="user">Irfan</span>!
+      </div>
+      
+      <div class="date" id="date-today"></div>
+    </div>
+
+    <!-- My Orders Section -->
+    <div class="card">
+      <h3 class="section-title">🛒 My Orders</h3>
+      <table class="orders-table">
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Order Date</th>
+            <th>Status</th>
+            <th>Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>#ORD12345</td>
+            <td>2025-04-20</td>
+            <td>Completed</td>
+            <td><a href="#">View Details</a></td>
+          </tr>
+          <tr>
+            <td>#ORD12346</td>
+            <td>2025-04-18</td>
+            <td>Pending</td>
+            <td><a href="#">View Details</a></td>
+          </tr>
+          <tr>
+            <td>#ORD12347</td>
+            <td>2025-04-15</td>
+            <td>Shipped</td>
+            <td><a href="#">View Details</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const main = document.getElementById('main');
+      sidebar.classList.toggle('collapsed');
+      main.classList.toggle('expanded');
+    }
+
+    // Dynamic Greeting based on time
+    function setGreeting() {
+      const hour = new Date().getHours();
+      let greeting = "Good Morning";
+
+      if (hour >= 12 && hour < 18) {
+        greeting = "Good Afternoon";
+      } else if (hour >= 18) {
+        greeting = "Good Evening";
+      }
+
+      document.getElementById('greeting-text').innerText = greeting;
+    }
+    setGreeting();
+
+    // Date Display
+    document.getElementById('date-today').innerText = new Date().toLocaleDateString();
+  </script>
+</body>
+</html>
