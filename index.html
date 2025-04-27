@@ -10,31 +10,41 @@
 <body>
 
 <!-- Navbar -->
-<nav>
-    <img src="LOGO.jpg" alt="Logo" class="nav-logo">
-    <a href="#">Home</a>
-    <a href="#">About</a>
-    <a href="#">Resources</a>
-    <a href="#">Contact</a>
-    <a href="Login.html">Login</a>
-  </nav>
+<nav class="main-nav">
+    <div class="logo">
+        &lt;/&gt;Aries Academy
+      </div>      
+    <div class="nav-links" id="navLinks">
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Resources</a>
+        <a href="#">Login</a>
+        <span class="close-btn" onclick="toggleNav()">×</span>
+    </div>
+    <div class="hamburger" onclick="toggleNav()">☰</div>
+</nav>
+
   
 
 <!-- Hero Section -->
 <section class="hero">
-    <div>
-        <div class="text-container">
-            <span class="text_wel">Welcome to </span>
-            <span id="dynamic-text" class="typing-effect"></span>
-          </div>
-          <h2 class="gateaway">Your Gateaway to Success!</h2><br>
-      <p>Aries Academy is your one-stop destination for past question papers, study notes, lab manuals, and project materials. Simplify your learning journey with easy access to well-organized resources. Join us and take a step towards academic excellence!</p>
+    <div class="hero-text">
+      <div class="text-container">
+        <span class="text_wel">Welcome to </span>
+        <span id="dynamic-text" class="typing-effect"></span>
+      </div>
+      <h2 class="gateaway">Your Gateway to Success!</h2>
+      <p>
+        Aries Academy is your one-stop destination for past question papers, study notes, lab manuals, and project materials. Simplify your learning journey with easy access to well-organized resources. Join us and take a step towards academic excellence!
+      </p>
       <button onclick="window.location.href='#'">Get Started</button>
     </div>
-    <div>
-        <img src="new.png" alt="Studying Image">
+  
+    <div class="hero-image">
+      <img src="photo_2025-04-27_08-37-13.jpg">
     </div>
-</section>
+  </section>
+  
   
 <section class="about">
     <div class="">
@@ -107,8 +117,14 @@
     <p>Follow Us: <a href="#">Instagram</a> | <a href="#">Facebook</a> | <a href="#">Twitter</a></p>
 </footer>
 <script>
+   
+function toggleNav() {
+    const nav = document.getElementById('navLinks');
+    nav.classList.toggle('active');
+}
+
     let textElement = document.getElementById("dynamic-text");
-    let textArray = ["|Aries Academy", "|Start Learning"];
+    let textArray = ["Aries Academy", "Start Learning"];
     let currentIndex = 0;
     let typingSpeed = 100; // Speed of typing effect (in ms)
     let blinkDuration = 1000; // Time "Aries Academy" blinks before switching (in ms)
