@@ -14,107 +14,217 @@ body {
 }
 
 /* Navbar Styling */
-/* Navbar Styling */
-nav {
-    background-color: #a1ddec;
-    color: rgb(0, 0, 0);
-    padding: 15px;
-    text-align: end;
-    border-radius: 4px;
-}
-nav img.nav-logo{
-    height: 40px;
-    float: left;
-    margin-top: -5;
-    mix-blend-mode: darken;
-}
-nav a {
-    color: rgb(255, 255, 255);
-    margin: 0 20px;
-    text-decoration: none;
-    font-size: 1.2rem;
-    
-}
-
-nav a:hover {
-    text-decoration: underline;
-    color: red;
-    transition: .3s;
-} 
-
-/* Hero Section Styling */
-.hero {
+/* NAVBAR STYLES */
+.main-nav {
+    position: relative;
+    background: linear-gradient(to left, #ff3a54, #01010c);   
+    padding: 10px;
     display: flex;
     justify-content: space-between;
-    align-items: left;
-    background: linear-gradient(to right, #007bff, #020222);
-    color: #ffffff;
-    padding: 50px 20px;
+    align-items: center;
 }
 
-.hero div {
-    flex: 1;
-
+@font-face {
+    font-family: 'Algerian';
+    src: local('Algerian');
+  }
+  
+  .logo {
+    font-family: 'Algerian', serif;
+    font-size: 32px;
+    color: #00ff95;
+  }
+  .logo span {
+    color: #0074f0; /* Blue color for </> */
+  }
+/* Default nav links */
+.nav-links {
+    display: flex;
+    gap: 20px;
 }
-.hero .text_wel{
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+
+.nav-links a:hover {
     color: rgb(0, 0, 0);
-    font-size: 2.5rem;
-    font-weight: bold;
+    transition: 0.3s;
 }
-.hero .gateaway{
-    color: rebeccapurple;
 
+/* Hamburger (hidden by default) */
+.hamburger {
+    display: none;
     font-size: 2rem;
+    cursor: pointer;
+    color: black;
 }
-.hero img {
+
+/* Close button */
+.close-btn {
+    display: none;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2rem;
+    cursor: pointer;
+    color: red;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 50%;
+        height: 100%;
+        background-color: #020d18;
+        padding-top: 60px;
+        transition: left 0.3s ease-in-out;
+        z-index: 999;
+    }
+
+    .nav-links.active {
+        left: 0;
+        display: flex;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .close-btn {
+        display: block;
+    }
+}
+
+
+/* Hero Section Styling */
+/* HERO Section */
+.hero {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px 10%;
+    min-height: 100vh;
+    background: linear-gradient(to right, #ffffff, #ffffff);
+     color: #000000;
+     margin-top: -40px;
+  }
+  
+  .hero div {
+    flex: 1;
+  }
+  
+  .hero .text_wel {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #007bff;
+  }
+  
+  .hero .gateaway {
+    font-size: 2.2rem;
+    color: #7006da;
+    margin-top: 10px;
+  }
+  
+  .hero img {
     max-width: 100%;
     height: 500px;
     border-radius: 40%;
-    float: right;
-    margin-top: -50px;
-}
-
-.hero h1 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-}
-/*affect */
-.typing-effect {
-    font-size: 2.5rem;
+    object-fit: cover;
+    animation: fadeIn 1s ease-in;
+  }
+  
+  /* Typing Effect */
+  .typing-effect {
+    font-size: 1.6rem;
     font-weight: bold;
     color: #ff0303;
-    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 3px solid #ff0000;
+    animation: typing 3s steps(30, end), blink-caret .75s step-end infinite;
   }
-
-  .blinking {
-    color: #3498db;
-    animation: blink 0.8s step-end infinite;
+  
+  /* Typing Animation */
+  @keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
   }
-
-  @keyframes blink {
-    50% { opacity: 0; }
+  
+  @keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: #3498db; }
   }
-
-.hero p {
+  
+  .hero p {
     font-size: 1.2rem;
-    margin-bottom: 20px;
-}
-
-.hero button {
-    padding: 10px 20px;
+    margin: 20px 0;
+    line-height: 1.6;
+  }
+  
+  .hero button {
+    padding: 12px 30px;
     background-color: #e74c3c;
     border: none;
     color: white;
-    font-size: 1rem;
+    font-size: 1.1rem;
     cursor: pointer;
-    border-radius: 20px;
-}
-
-.hero button:hover {
+    border-radius: 30px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    transition: all 0.4s ease;
+  }
+  
+  .hero button:hover {
     background-color: #000000;
-    transition: .5s;
-}
-/*About Aries Education */
+    transform: translateY(-3px);
+  }
+  
+  /* Fade In Animation */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* Mobile Responsive Style */
+  @media screen and (max-width: 768px) {
+    .hero {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      background: url('photo_2025-04-27_08-37-13.jpg') no-repeat center/cover;
+      position: relative;
+      height: 100vh;
+      color: #00ffdd;
+    }
+  
+    .hero-image {
+      display: none;
+    }
+  
+    .hero-text {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 25px;
+      border-radius: 15px;
+      margin-top: 30vh;
+      z-index: 2;
+      position: relative;
+      animation: fadeIn 1s ease-in;
+    }
+  
+    .hero button {
+      margin-top: 20px;
+    }
+  }
+  
+/* About Aries Education */
 .about {
     display: flex;
     justify-content: space-between;
@@ -126,7 +236,6 @@ nav a:hover {
 .about div {
     flex: 1;
 }
-
 .about img {
     max-width: 100%;
     height: 500px;
@@ -134,17 +243,14 @@ nav a:hover {
     float: left;
     margin-top: -120px;
 }
-
 .about h2 {
     font-size: 2.5rem;
     margin-bottom: 20px;
 }
-
 .about p {
     font-size: 1.2rem;
     margin-bottom: 20px;
 }
-
 
 /* Resource Section */
 .resources {
@@ -152,20 +258,17 @@ nav a:hover {
     background-color: #f7f7f7;
     text-align: center;
 }
-
 .resources h1 {
     font-size: 2.5rem;
     margin-bottom: 40px;
     color: #2c3e50;
 }
-
 .resource-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
 }
-
 .resource-box {
     width: 23%;
     background-color: #ecf0f1;
@@ -176,36 +279,30 @@ nav a:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
     display: flex;
-    flex-direction: column; /* Stack image and content vertically */
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between; /* Ensure image and content have equal space */
+    justify-content: space-between;
 }
-
 .resource-box:hover {
     transform: translateY(-5px);
 }
-
 .resource-box h3 {
     font-size: 1.5rem;
     margin-top: 15px;
     color: #34495e;
 }
-
 .resource-box p {
     font-size: 1rem;
     color: #7f8c8d;
     margin-top: 10px;
 }
-
-/* Fix for images inside resource boxes */
 .resource-box img {
-    width: 80%; /* Adjust image size to fit inside box */
-    height: auto; /* Maintain aspect ratio */
-    max-height: 180px; /* Limit the height of the image */
-    object-fit: contain; /* Ensure image fits without distorting */
-    margin-bottom: 15px; /* Space between image and content */
+    width: 80%;
+    height: auto;
+    max-height: 180px;
+    object-fit: contain;
+    margin-bottom: 15px;
 }
-
 
 /* Guidance & Monitoring + Presentations Section */
 .guidance-presentations {
@@ -214,7 +311,6 @@ nav a:hover {
     padding: 40px 20px;
     flex-wrap: wrap;
 }
-
 .guidance-box, .presentation-box {
     width: 48%;
     background-color: #ecf0f1;
@@ -224,12 +320,10 @@ nav a:hover {
     margin-bottom: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-
 .guidance-box h3, .presentation-box h3 {
     font-size: 1.5rem;
     margin-bottom: 20px;
 }
-
 .guidance-box p, .presentation-box p {
     font-size: 1rem;
     color: #7f8c8d;
@@ -241,12 +335,10 @@ nav a:hover {
     padding: 40px 20px;
     text-align: center;
 }
-
 .testimonials h2 {
     font-size: 2rem;
     margin-bottom: 40px;
 }
-
 .testimonial-box {
     width: 30%;
     margin: 20px;
@@ -257,13 +349,11 @@ nav a:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
-
 .testimonial-box p {
     font-size: 1.1rem;
     color: #7f8c8d;
     margin-bottom: 15px;
 }
-
 .testimonial-box strong {
     font-size: 1.2rem;
     color: #2c3e50;
@@ -276,45 +366,88 @@ nav a:hover {
     padding: 20px 0;
     text-align: center;
 }
-
 .footer p {
     font-size: 1rem;
     margin-bottom: 10px;
 }
-
 .footer a {
     color: white;
     text-decoration: none;
     margin: 0 10px;
 }
-
 .footer a:hover {
     text-decoration: underline;
 }
-
 .footer .social-icons a {
     margin: 0 10px;
     font-size: 1.5rem;
 }
 
-  
 /* Media Queries for Responsiveness */
 @media screen and (max-width: 768px) {
+    /* Navbar adjustments */
+    nav {
+        text-align: center;
+    }
+
+    nav img.nav-logo {
+        float: none;
+        display: block;
+        margin: 0 auto 10px;
+    }
+
+    nav a {
+        display: block;
+        margin: 10px 0;
+    }
+
+    /* Hero section */
     .hero {
         flex-direction: column;
         text-align: center;
     }
 
-    .resources {
-        flex-direction: column;
-        align-items: center;
+    .hero img {
+        float: none;
+        height: auto;
+        width: 80%;
+        margin: 20px auto;
+        display: block;
     }
 
+    .hero .text_wel, .hero .gateaway {
+        font-size: 2rem;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    /* About section */
+    .about {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .about img {
+        float: none;
+        width: 80%;
+        height: auto;
+        margin: 20px auto;
+        display: block;
+    }
+
+    /* Resource boxes */
     .resource-box {
         width: 80%;
         margin-bottom: 20px;
     }
 
+    /* Guidance and presentations */
     .guidance-presentations {
         flex-direction: column;
     }
@@ -324,8 +457,21 @@ nav a:hover {
         margin-bottom: 20px;
     }
 
+    /* Testimonials */
     .testimonial-box {
         width: 80%;
         margin: 20px 0;
+    }
+
+    /* Footer icons */
+    .footer .social-icons {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .footer .social-icons a {
+        margin: 10px;
+        font-size: 1.2rem;
     }
 }
