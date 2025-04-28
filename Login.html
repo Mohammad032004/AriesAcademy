@@ -3,154 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aries Academy</title>
-    <link rel="stylesheet" href="index.css"> <!-- Link to your external CSS file -->
+    <title>Document</title>
+    <link rel="stylesheet" href="login.css">
 </head>
+<body background="photo_2025-04-19_00-08-02.jpg">
+    <div class="center">
+        <h1>login</h1>
+        <form onsubmit="redirectToDashboard(event)">
 
-<body>
-
-<!-- Navbar -->
-<nav class="main-nav">
-    <div class="logo">
-        &lt;/&gt;Aries Academy
-      </div>      
-    <div class="nav-links" id="navLinks">
-        <a href="#">Home</a>
-        <a href="#">About</a>
-        <a href="#">Resources</a>
-        <a href="Login.html">Login</a>
-        <span class="close-btn" onclick="toggleNav()">×</span>
+            <div class="text_field">
+                <input type="text" required>
+                <span></span>
+                <label>Username</label>
+            </div>
+            <div class="text_field">
+                <input type="password" required>
+                <span></span>
+                <label>Password</label>
+                <i class="fas fa-eye toggle" onclick="togglePassword()"></i>
+            </div>
+            <div class="pass">Forget password?</div>
+            <input type="submit" value="login">
+            <div class="signup">
+                Not A Member<a href="">SignUp</a>
+            </div>
+        </form>
     </div>
-    <div class="hamburger" onclick="toggleNav()">☰</div>
-</nav>
-
-  
-
-<!-- Hero Section -->
-<section class="hero">
-    <div class="hero-text">
-      <div class="text-container">
-        <span class="text_wel">Welcome to </span>
-        <span id="dynamic-text" class="typing-effect"></span>
-      </div>
-      <h2 class="gateaway">Your Gateway to Success!</h2>
-      <p>
-        Aries Academy is your one-stop destination for past question papers, study notes, lab manuals, and project materials. Simplify your learning journey with easy access to well-organized resources. Join us and take a step towards academic excellence!
-      </p>
-      <button onclick="window.location.href='#'">Get Started</button>
-    </div>
-  
-    <div class="hero-image">
-      <img src="photo_2025-04-27_08-37-13.jpg">
-    </div>
-  </section>
-  
-  
-<section class="about">
-    <div class="">
-        <img src="-ntifVs6IXnV3-iuuy8Aj-removebg-preview.png" alt="holding certificate">
-        <h2>About Aries Academy</h2>
-        <p>Aries Academy is your one-stop solution for accessing last year’s question papers, notes, lab manuals, and project materials — all in one place.
-            With an easy ₹99 pass, students can unlock reliable, student-focused resources and simplify their academic journey.</p>
-    </div>
-</section>
-
-<section class="resources">
-    <h1>Resources</h1>
-    <div class="resource-container">
-        <div class="resource-box">
-            <img src="J5tRcIAMyI2b_Qlciwh4H.jpg">
-            <h3>Question Paper</h3>
-            <p>Access a wide range of past question papers to practice and prepare effectively for your exams.</p>
-        </div>
-        <div class="resource-box">
-            <img src="jHlgLUvpzfgzTYw8Rjhj9.jpg">
-            <h3>Study Notes</h3>
-            <p>Get well-organized and comprehensive study notes to help you understand the key concepts.</p>
-        </div>
-        <div class="resource-box">
-            <img src="n9e2xjeamfd4z24vo0yu8.jpg">
-            <h3>Lab Manual</h3>
-            <p>Explore detailed lab manuals for a hands-on understanding of the theoretical concepts.</p>
-        </div>
-        <div class="resource-box">
-            <h3>Project Materials</h3>
-            <p>Find project materials and resources that will help you with your academic projects.</p>
-        </div>
-    </div>
-</section>
-
-<!-- Guidance & Monitoring + Presentations Section -->
-<section class="guidance-presentations">
-    <div class="guidance-box">
-        <img src="">
-        <h3>Guidance & Monitoring</h3>
-        <p>Our team provides guidance and closely monitors your academic progress, helping you stay on track.</p>
-    </div>
-    <div class="presentation-box">
-        <h3>Presentations</h3>
-        <p>Access study materials in the form of easy-to-understand presentations to aid in your learning process.</p>
-    </div>
-</section>
-
-<!-- Testimonials Section -->
-<section class="testimonials">
-    <h2>What Our Students Say</h2>
-    <div class="testimonial-box">
-        <p>"Aries Academy helped me ace my exams with access to all the resources I needed!"</p>
-        <strong>John Doe</strong>
-    </div>
-    <div class="testimonial-box">
-        <p>"The guidance and monitoring feature kept me focused and on track throughout my semester!"</p>
-        <strong>Jane Smith</strong>
-    </div>
-    <div class="testimonial-box">
-        <p>"I could easily find all the project materials and study notes on one platform. Highly recommended!"</p>
-        <strong>David Lee</strong>
-    </div>
-</section>
-
-<!-- Footer Section -->
-<footer class="footer">
-    <p>&copy; 2025 Aries Academy. All Rights Reserved.</p>
-    <p><a href="Privact&Policy.html">Privacy Policy</a> | <a href="Terms_Condition.html">Terms & Conditions</a></p>
-    <p>Follow Us: <a href="#">Instagram</a> | <a href="#">Facebook</a> | <a href="#">Twitter</a></p>
-</footer>
-<script>
-   
-function toggleNav() {
-    const nav = document.getElementById('navLinks');
-    nav.classList.toggle('active');
-}
-
-    let textElement = document.getElementById("dynamic-text");
-    let textArray = ["Aries Academy", "Start Learning"];
-    let currentIndex = 0;
-    let typingSpeed = 100; // Speed of typing effect (in ms)
-    let blinkDuration = 1000; // Time "Aries Academy" blinks before switching (in ms)
-
-    function typeText(text, index) {
-      let charIndex = 0;
-      textElement.textContent = ""; // Clear previous text
-
-      let typingInterval = setInterval(() => {
-        textElement.textContent += text.charAt(charIndex);
-        charIndex++;
-        if (charIndex === text.length) {
-          clearInterval(typingInterval);
-          setTimeout(() => {
-            currentIndex = (currentIndex + 1) % textArray.length;
-            textElement.classList.remove("blinking");
-            typeText(textArray[currentIndex], currentIndex);
-          }, blinkDuration);
+    <script>
+        function redirectToDashboard(event) {
+          event.preventDefault();
+          window.location.href = "User_Dashboard.html";
         }
-      }, typingSpeed);
-    }
-
-    // Start the typing effect initially
-    typeText(textArray[currentIndex], currentIndex);
-  </script>
-
-  
+      </script>
+      
 </body>
 </html>
